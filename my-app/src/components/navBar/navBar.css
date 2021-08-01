@@ -1,0 +1,9 @@
+.nav_bar{
+    margin:auto;/*центрируем ее*/
+    background: darkgray;
+}
+.bblock {
+    float: right; /*Задаем обтекание*/
+    margin-right: 50px;
+    text-align:right; /*Центрируем текст по горизонтали*/
+}

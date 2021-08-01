@@ -1,0 +1,41 @@
+
+.form-search .nav {
+    border: 1px solid #fff;
+    border-radius: 3px;
+    display: table;
+    width: 100%;
+    margin-bottom: 15px;
+}
+[type=checkbox], [type=radio] {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+}
+.form-search .nav label {
+    border-right: 1px solid #fff;
+    font-size: 13px;
+    line-height: 30px;
+    padding: 0 10px;
+    display: table-cell;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+}
+.form-search .item-column {
+    display: table-cell;
+    vertical-align: top;
+}
+
+
+form {
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+.filter-checked-car {
+    margin-bottom: 15px;
+    text-align: right;
+}
+
