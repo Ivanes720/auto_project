@@ -4,21 +4,21 @@ const NavBar= () => {
     return (
       <div className='nav_bar '>
       <ul>
-        <span className='bblock' href="/home">Active</span>
+        <span className='bblock' href="/home">RIA.com</span>
       </ul>
       <ul>
-        <span className='bblock' >spannk</span>
+        <span className='bblock' >Автомобили</span>
       </ul>
       <ul>
-        <span className='bblock' >spannk</span>
+        <span className='bblock' >Недвижимость</span>
       </ul>
       <ul>
         <span className='bblock' >
-          Disabled
+          Автотовары
         </span>
       </ul>
       <ul>
-        <span className='bblock' >spannk</span>
+        <span className='bblock' >Автозапчасти</span>
       </ul>
     </div>
    )
