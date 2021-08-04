@@ -1,32 +1,40 @@
-import React from "react";
+import React, { useState, useEffect  } from "react";
 import "./searchFormTitle.css";
+const allCategoriesFromApi ="https://developers.ria.com/auto/categories/?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs";
 
-const searchFormTitle = () => {
-  const createNode = (element) => document.createElement(element);
+const SearchFormTitle = () => {
+const [selectOptions, setSelectOptions]=useState([])
 
-  const getAllData = async () => {
-    const res = await fetch(
-      "https://developers.ria.com/auto/categories/?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs"
-    );
-    if (res.ok) {
-      const data = await res.json();
-      
-      return data.forEach(elem => {
-        for (let elem = 0; elem < data.length; elem++) 
-        {
-          const selectElem = document.getElementById("categories");
-          const option = createNode("option");
-          option.textContent = data[elem].name;
-          selectElem.appendChild(option);
-        }
-      });;
-    } else {
-      console.log("error, res.status");
-    }
-
-  };
-
-  getAllData();
+useEffect(() => {
+  async function getAllData(url) {
+    const response = await fetch(url);
+    const body = await response.json();
+    console.log(body)
+    setSelectOptions(body.map(({ name }) => ({ name: name, value: name })));
+  }
+  getAllData(allCategoriesFromApi);
+}, []);
+//тут переделать без useEffect
+/* const getAllData = async (url) => {
+      const res = await fetch(
+        url
+      );
+      if (res.ok) {
+        const data = await res.json();
+        
+        return data.forEach((elem) => {
+            const selectElem = document.getElementById("categories");
+            const option = createNode("option");
+            option.textContent = elem.name;
+            selectElem.appendChild(option);
+                });;
+      } else {
+        console.log("error, res.status");
+      }
+  
+    }; */
+  
+    //getAllData(allCategoriesFromApi);
 
   return (
     <div className="form_search">
@@ -60,10 +68,19 @@ const searchFormTitle = () => {
           </div>
           <div className="item_column primary_column">
             <div className="select_transport">
-              <select id="categories" className="e-form">
-                <option value="">dssd</option>
-              </select>
-              <div className="brand_choise">
+
+            <select>
+              <option value="любой" >любой</option>
+      {selectOptions.map(item => (
+        <option
+          key={item.value}
+          value={item.name}
+        >
+          {item.name}
+        </option>
+      ))}
+    </select>
+             <div className="brand_choise">
                 <input
                   type="search"
                   id="brandTooltipBrandAutocompleteInput-brand"
@@ -157,4 +174,4 @@ const searchFormTitle = () => {
   );
 };
 
-export default searchFormTitle;
+export default SearchFormTitle;
