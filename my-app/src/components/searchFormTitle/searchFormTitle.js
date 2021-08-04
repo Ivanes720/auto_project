@@ -37,7 +37,7 @@ useEffect(() => {
     //getAllData(allCategoriesFromApi);
 
   return (
-    <div className="form_search">
+    <div className="span8 form-search">
       <form>
         <div className="filter-checked-car">
           <input type="checkbox" id="verifiedVIN" />
@@ -68,7 +68,6 @@ useEffect(() => {
           </div>
           <div className="item_column primary_column">
             <div className="select_transport">
-
             <select>
               <option value="любой" >любой</option>
       {selectOptions.map(item => (
@@ -80,14 +79,36 @@ useEffect(() => {
         </option>
       ))}
     </select>
+<div>
              <div className="brand_choise">
                 <input
+                required="required"
+                autoсomplete="off"
                   type="search"
                   id="brandTooltipBrandAutocompleteInput-brand"
-                  placeholder="марка"
+                  placeholder="поиск"
                 />
-                <label className="text"></label>
+                
+                <label htmlFor="brandTooltipBrandAutocompleteInput-brand" data-text="Марка" className="text">
+                
+                </label>
                 <span className="ac-clean">×</span>
+               
+<ul 
+className="unstyle scrollbar autocomplete-select hide">
+<li 
+ className="list-item">
+  {selectOptions.map(item => (
+        <a >
+          {item.name}
+        </a>
+      ))}  
+      </li>
+</ul>
+
+
+              </div>
+
               </div>
               <div className="model_choise">
                 <input
