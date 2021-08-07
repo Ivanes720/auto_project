@@ -1,5 +1,6 @@
 import React, { useState, useEffect  } from "react";
 import "./searchFormTitle.css";
+import 'bootstrap/dist/css/bootstrap.min.css';
 const allCategoriesFromApi ="https://developers.ria.com/auto/categories/?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs";
 
 const SearchFormTitle = () => {
@@ -79,37 +80,20 @@ useEffect(() => {
         </option>
       ))}
     </select>
-<div>
-             <div className="brand_choise">
-                <input
-                required="required"
-                autoсomplete="off"
-                  type="search"
-                  id="brandTooltipBrandAutocompleteInput-brand"
-                  placeholder="поиск"
-                />
-                
-                <label htmlFor="brandTooltipBrandAutocompleteInput-brand" data-text="Марка" className="text">
-                
-                </label>
-                <span className="ac-clean">×</span>
-               
-<ul 
-className="unstyle scrollbar autocomplete-select hide">
-<li 
- className="list-item">
-  {selectOptions.map(item => (
-        <a >
-          {item.name}
-        </a>
-      ))}  
-      </li>
-</ul>
-
-
-              </div>
-
-              </div>
+<div className="form_mark">
+    <div id="brandTooltipBrandAutocomplete-brand" className="autocomplete-search">
+      <input type="search" id="brandTooltipBrandAutocompleteInput-brand" placeholder="Поиск..."  required="required" aria-label="Поиск Марка" value=""/>
+      <label for="brandTooltipBrandAutocompleteInput-brand" data-text="Марка" className="text">
+        </label>
+        <span className="ac-clean hide">×</span>
+        <ul className="unstyle scrollbar autocomplete-select hide">
+        <li data-value="4021" className="list-item">
+         
+          </li>
+         
+          </ul>
+    </div>
+</div>
               <div className="model_choise">
                 <input
                   type="search"
@@ -196,3 +180,6 @@ className="unstyle scrollbar autocomplete-select hide">
 };
 
 export default SearchFormTitle;
+
+
+

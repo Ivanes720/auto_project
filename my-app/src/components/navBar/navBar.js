@@ -1,27 +1,30 @@
 import React from 'react';
-import './navBar.css';
-const NavBar= () => {
-    return (
-      <div className='nav_bar '>
-      <ul>
-        <span className='bblock' href="/home">RIA.com</span>
-      </ul>
-      <ul>
-        <span className='bblock' >Автомобили</span>
-      </ul>
-      <ul>
-        <span className='bblock' >Недвижимость</span>
-      </ul>
-      <ul>
-        <span className='bblock' >
-          Автотовары
-        </span>
-      </ul>
-      <ul>
-        <span className='bblock' >Автозапчасти</span>
-      </ul>
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { Nav, NavItem, NavLink } from 'reactstrap';
+
+const NavBar = (props) => {
+  return (
+    <div>
+       <Nav>
+        <NavItem>
+          <NavLink href="#">RIA.com</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="#">Автомобили</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="#">Недвижимость</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="#">Автотовары</NavLink>
+        </NavItem>
+        <NavItem>
+          <NavLink href="#">Автозапчасти</NavLink>
+        </NavItem>
+      </Nav>
+
     </div>
-   )
+  );
 }
 
 export default NavBar;

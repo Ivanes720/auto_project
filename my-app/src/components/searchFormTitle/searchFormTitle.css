@@ -44,6 +44,7 @@
     text-align: center;
     cursor: pointer;
     white-space: nowrap;
+    
 }
 .form-search .item-column {
     display: table-cell;
@@ -51,88 +52,3 @@
 }
 
 
-form {
-    display: block;
-    margin: 0;
-    padding: 0;
-}
-.filter-checked-car {
-    margin-bottom: 15px;
-    text-align: right;
-}
-
-*, :after, :before {
-  
-    box-sizing: border-box;
-}
-.autocomplete-search input[type=search]+label {
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    cursor: text;
-}
-.autocomplete-search {
-    position: relative;
-}
-.autocomplete-search input[type=search] {
-    width: 100%;
-    
-    box-shadow: none;
-}
-.form-search input[type=number], .form-search input[type=search], .form-search select {
-    border: 0;
-    padding: 6px 0;
-}
-.ac-clean {
-    display: none;
-    background: blue;
-   
-    top: 2px;
-    right: 2px;
-    color: #db5c4c;
-    font-size: 24px;
-    line-height: 20px;
-    padding: 3px 6px 1px;
-    cursor: pointer;
-    z-index: 1;
-    border-radius: 3px;
-}
-.autocomplete-select {
-    background: rgb(78, 8, 124);
-    border: 1px solid #3498db;
-    width: 100%;
-    max-height: 190px;
-    padding: 0;
-    margin: 0;
-    overflow-y: auto;
-    overflow-x: hidden;
-    position: absolute;
-    left: 0;
-    z-index: 3;
-}
-.autocomplete-select .list-item {
-    margin: 0;
-    white-space: nowrap;
-}
-.autocomplete-select .list-item .item {
-    display: block;
-    padding: 3px 6px;
-    margin-bottom: 1px;
-    color: #414042;
-    cursor: default;
-    border: 0;
-}
-.label-item {
-    color: #9b9b9b;
-    padding: 5px 6px 2px;
-    display: inline-block;
-    width: 100%;
-    font-size: 13px;
-    cursor: default;
-}
-a {
-    text-decoration: none;
-    
-    text-decoration-skip-ink: none;
-}
