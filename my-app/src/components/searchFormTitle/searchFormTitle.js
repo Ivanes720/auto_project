@@ -15,27 +15,7 @@ useEffect(() => {
   }
   getAllData(allCategoriesFromApi);
 }, []);
-//тут переделать без useEffect
-/* const getAllData = async (url) => {
-      const res = await fetch(
-        url
-      );
-      if (res.ok) {
-        const data = await res.json();
-        
-        return data.forEach((elem) => {
-            const selectElem = document.getElementById("categories");
-            const option = createNode("option");
-            option.textContent = elem.name;
-            selectElem.appendChild(option);
-                });;
-      } else {
-        console.log("error, res.status");
-      }
-  
-    }; */
-  
-    //getAllData(allCategoriesFromApi);
+
 
   return (
     <div className="span8 form-search">
