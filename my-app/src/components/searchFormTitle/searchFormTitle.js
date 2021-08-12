@@ -1,41 +1,22 @@
 import React, { useState, useEffect  } from "react";
 import "./searchFormTitle.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import getData from "../../services/getData"
 const allCategoriesFromApi ="https://developers.ria.com/auto/categories/?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs";
 
-const SearchFormTitle = () => {
-const [selectOptions, setSelectOptions]=useState([])
+const SearchFormTitle = (props) => {
+  getData = new getData(allCategoriesFromApi);
 
-useEffect(() => {
+/* useEffect(() => {
   async function getAllData(url) {
     const response = await fetch(url);
     const body = await response.json();
-    console.log(body)
     setSelectOptions(body.map(({ name }) => ({ name: name, value: name })));
   }
   getAllData(allCategoriesFromApi);
-}, []);
-//тут переделать без useEffect
-/* const getAllData = async (url) => {
-      const res = await fetch(
-        url
-      );
-      if (res.ok) {
-        const data = await res.json();
-        
-        return data.forEach((elem) => {
-            const selectElem = document.getElementById("categories");
-            const option = createNode("option");
-            option.textContent = elem.name;
-            selectElem.appendChild(option);
-                });;
-      } else {
-        console.log("error, res.status");
-      }
-  
-    }; */
-  
-    //getAllData(allCategoriesFromApi);
+}, []); */
+
+
 
   return (
     <div className="span8 form-search">
@@ -180,6 +161,3 @@ useEffect(() => {
 };
 
 export default SearchFormTitle;
-
-
-

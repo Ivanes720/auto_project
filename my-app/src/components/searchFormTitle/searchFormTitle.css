@@ -50,5 +50,36 @@
     display: table-cell;
     vertical-align: top;
 }
-
-
+ .footer-form {
+    -webkit-text-size-adjust: 100%;
+    font-weight: 400;
+    font-style: normal;
+    font-family: Arial,Helvetica,sans-serif;
+    line-height: 1.2;
+    text-rendering: optimizeSpeed;
+    -webkit-box-direction: normal;
+    font-size: 16px;
+    color: #fff;
+    box-sizing: border-box;
+ }
+ .ext-end {
+    -webkit-text-size-adjust: 100%;
+    font-weight: 400;
+    font-style: normal;
+    font-family: Arial,Helvetica,sans-serif;
+    text-rendering: optimizeSpeed;
+    -webkit-box-direction: normal;
+    font-size: 16px;
+    box-sizing: border-box;
+    background-color: transparent;
+    text-decoration: none;
+    text-decoration-skip-ink: none;
+    color: inherit;
+    text-align: center;
+    display: inline-block;
+    line-height: 20px;
+    border: 1px solid #fff;
+    border-radius: 5px;
+    width: 280px;
+    padding: 5px 10px;
+ }
