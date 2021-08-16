@@ -1,22 +1,20 @@
 import React, { useState, useEffect  } from "react";
 import "./searchFormTitle.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import getTransportTypes from "../../services/apiServices"
 const allCategoriesFromApi ="https://developers.ria.com/auto/categories/?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs";
 
 const SearchFormTitle = () => {
-const [selectOptions, setSelectOptions]=useState([])
+  const [selectOptions, setSelectOptions]=useState([]);
 
-useEffect(() => {
-  async function getAllData(url) {
-    const response = await fetch(url);
-    const body = await response.json();
-    console.log(body)
-    setSelectOptions(body.map(({ name }) => ({ name: name, value: name })));
-  }
-  getAllData(allCategoriesFromApi);
-}, []);
+  useEffect(() =>  {
+      const data =  getTransportTypes(allCategoriesFromApi);
+    setSelectOptions(data.map(({ name }) => ({ name: name, value: name }))
+    },
+     []));
 
-
+  
+  
   return (
     <div className="span8 form-search">
       <form>
