@@ -6,6 +6,7 @@ const allCategoriesFromApi ="https://developers.ria.com/auto/categories/?api_key
 
 const SearchFormTitle = () => {
   const [selectOptions, setSelectOptions]=useState([]);
+<<<<<<< HEAD
 
   useEffect(() =>  {
       const data =  getTransportTypes(allCategoriesFromApi);
@@ -13,6 +14,17 @@ const SearchFormTitle = () => {
     },
      []));
   
+=======
+
+  useEffect(() =>  {
+      const data =  getTransportTypes(allCategoriesFromApi);
+    setSelectOptions(data.map(({ name }) => ({ name: name, value: name }))
+    },
+     []));
+
+  
+  
+>>>>>>> 7d879c4ddbfb6365e0c5b3088c3b92b95c7e34dc
   return (
     <div className="span8 form-search">
       <form>
