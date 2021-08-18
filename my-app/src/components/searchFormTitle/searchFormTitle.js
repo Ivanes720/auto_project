@@ -12,8 +12,6 @@ const SearchFormTitle = () => {
     setSelectOptions(data.map(({ name }) => ({ name: name, value: name }))
     },
      []));
-
-  
   
   return (
     <div className="span8 form-search">
