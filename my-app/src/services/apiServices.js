@@ -6,4 +6,4 @@
     console.log(body)
  return body
   }
-   export default getTransportTypes(url); 
+   export default getTransportTypes(); 
