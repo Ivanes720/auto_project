@@ -3,13 +3,13 @@ import "./searchFormTitle.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import getTransportData from "../../services/apiServices"
 const allCategoriesFromApi ="https://developers.ria.com/auto/categories/?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs";
-const modelTransport ="https://developers.ria.com/auto/categories/:categoryId/marks?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs";
+const brandTransport ="https://developers.ria.com/auto/categories/:categoryId/marks?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs";
 
 
 const SearchFormTitle = (props) => {
   const [selectTypesTransport, setSelectTypesTransport]=useState([]);
 
-  const [selectModelTransport, setSelectModelTransport]=useState([]);
+  const [selectBrandTransport, setSelectBrandTransport]=useState([]);
 
 
   useEffect(() => {
@@ -23,8 +23,8 @@ console.log(data)
 
   useEffect(() => {
     (async() => {
-      let data=await getTransportData(modelTransport);
-      setSelectModelTransport(data.map(({ name }) => ({ name: name, value: name })));
+      let data=await getTransportData(brandTransport);
+      setSelectBrandTransport(data.map(({ name }) => ({ name: name, value: name })));
 console.log(data)
        })()
   
@@ -75,13 +75,9 @@ console.log(data)
     </select>
 <div className="form_mark">
     <div id="brandTooltipBrandAutocomplete-brand" className="autocomplete-search">
-      <input type="search" id="brandTooltipBrandAutocompleteInput-brand" placeholder="Поиск..."   aria-label="Поиск Марка"/>
-      <label   className="text">
-        </label>
-        <span className="ac-clean hide">×</span>
-        <select className="unstyle scrollbar autocomplete-select hide">
-        <option  className="list-item" >любой</option>
-      {selectModelTransport.map(item => (
+             <select className="unstyle scrollbar autocomplete-select hide">
+        <option  className="list-item" >марка</option>
+      {selectBrandTransport.map(item => (
         <option
           key={item.value}
           value={item.name}
