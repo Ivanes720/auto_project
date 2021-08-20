@@ -1,23 +1,34 @@
 import React, { useState, useEffect  } from "react";
 import "./searchFormTitle.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import getTransportTypes from "../../services/apiServices"
+import getTransportData from "../../services/apiServices"
 const allCategoriesFromApi ="https://developers.ria.com/auto/categories/?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs";
+const modelTransport ="https://developers.ria.com/auto/categories/:categoryId/marks?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs";
 
 
 const SearchFormTitle = (props) => {
-  const [selectOptions, setSelectOptions]=useState([]);
+  const [selectTypesTransport, setSelectTypesTransport]=useState([]);
 
- 
+  const [selectModelTransport, setSelectModelTransport]=useState([]);
+
 
   useEffect(() => {
-   let data=getTransportTypes(allCategoriesFromApi);
-
-   setSelectOptions(data.map(({ name }) => ({ name: name, value: name })));
-
+    (async() => {
+      let data=await getTransportData(allCategoriesFromApi);
+      setSelectTypesTransport(data.map(({ name }) => ({ name: name, value: name })));
+console.log(data)
+       })()
+  
   }, []);
 
+  useEffect(() => {
+    (async() => {
+      let data=await getTransportData(modelTransport);
+      setSelectModelTransport(data.map(({ name }) => ({ name: name, value: name })));
+console.log(data)
+       })()
   
+  }, []);
   
   return (
     <div className="span8 form-search">
@@ -52,8 +63,8 @@ const SearchFormTitle = (props) => {
           <div className="item_column primary_column">
             <div className="select_transport">
             <select>
-              <option value="любой" >любой</option>
-      {selectOptions.map(item => (
+              <option >любой</option>
+      {selectTypesTransport.map(item => (
         <option
           key={item.value}
           value={item.name}
@@ -64,16 +75,23 @@ const SearchFormTitle = (props) => {
     </select>
 <div className="form_mark">
     <div id="brandTooltipBrandAutocomplete-brand" className="autocomplete-search">
-      <input type="search" id="brandTooltipBrandAutocompleteInput-brand" placeholder="Поиск..."  required="required" aria-label="Поиск Марка" value=""/>
-      <label for="brandTooltipBrandAutocompleteInput-brand" data-text="Марка" className="text">
+      <input type="search" id="brandTooltipBrandAutocompleteInput-brand" placeholder="Поиск..."   aria-label="Поиск Марка"/>
+      <label   className="text">
         </label>
         <span className="ac-clean hide">×</span>
-        <ul className="unstyle scrollbar autocomplete-select hide">
-        <li data-value="4021" className="list-item">
+        <select className="unstyle scrollbar autocomplete-select hide">
+        <option  className="list-item" >любой</option>
+      {selectModelTransport.map(item => (
+        <option
+          key={item.value}
+          value={item.name}
+        >
+          {item.name}
+          </option>
+      ))}
+          
          
-          </li>
-         
-          </ul>
+          </select>
     </div>
 </div>
               <div className="model_choise">
