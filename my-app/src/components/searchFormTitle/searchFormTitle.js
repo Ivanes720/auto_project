@@ -6,10 +6,12 @@ const allCategoriesFromApi ="https://developers.ria.com/auto/categories/?api_key
 const brandTransport ="https://developers.ria.com/auto/categories/:categoryId/marks?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs";
 
 
-const SearchFormTitle = (props) => {
+const SearchFormTitle = () => {
   const [selectTypesTransport, setSelectTypesTransport]=useState([]);
 
   const [selectBrandTransport, setSelectBrandTransport]=useState([]);
+
+const changeValue=()=> document.querySelector('#select_type').value;
 
 
   useEffect(() => {
@@ -17,19 +19,21 @@ const SearchFormTitle = (props) => {
       let data=await getTransportData(allCategoriesFromApi);
       setSelectTypesTransport(data.map(({ name }) => ({ name: name, value: name })));
 console.log(data)
+
        })()
   
   }, []);
 
-  useEffect(() => {
+  useEffect(() => { 
     (async() => {
-      let data=await getTransportData(brandTransport);
-      setSelectBrandTransport(data.map(({ name }) => ({ name: name, value: name })));
-console.log(data)
+         let data=await getTransportData(brandTransport);
+      setSelectBrandTransport(data.map(({ name, value }) => ({ name: name, value: value })));
+     
        })()
   
   }, []);
   
+
   return (
     <div className="span8 form-search">
       <form>
@@ -62,13 +66,13 @@ console.log(data)
           </div>
           <div className="item_column primary_column">
             <div className="select_transport">
-            <select>
+            <select id="select_type" value={selectTypesTransport}  onChange={setSelectTypesTransport(changeValue)}>
               <option >любой</option>
       {selectTypesTransport.map(item => (
         <option
           key={item.value}
           value={item.name}
-        >
+            >
           {item.name}
         </option>
       ))}
