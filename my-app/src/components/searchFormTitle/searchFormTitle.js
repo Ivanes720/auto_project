@@ -4,8 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import getTransportData from "../../services/apiServices";
 const allCategoriesFromApi =
   "https://developers.ria.com/auto/categories/?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs";
-/* const brandTransport =
-  "https://developers.ria.com/auto/categories/:categoryId/marks?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs"; */
 
 const SearchFormTitle = (props) => {
   const [selectTypesTransport, setSelectTypesTransport] = useState([
@@ -15,7 +13,12 @@ const SearchFormTitle = (props) => {
   const [selectBrandTransport, setSelectBrandTransport] = useState([
     { name: "", value: "" },
   ]);
+  const [selectModelTransport, setSelectModelTransport] = useState([
+    { name: "", value: "" },
+  ]);
   const [filters, setFilters] = useState([{ value: "" }]);
+
+
   const changeValue = (event) => setFilters({ value: event.target.value });
 
   useEffect(() => {
@@ -35,8 +38,26 @@ const SearchFormTitle = (props) => {
       setSelectBrandTransport(
         data.map(({ name, value }) => ({ name: name, value: value }))
       );
+    
     })();
+
   }, [filters.value]);
+  console.log(selectBrandTransport.value)
+  useEffect(() => {
+    (async () => {
+      let data = await getTransportData(
+       `https://developers.ria.com/auto/categories/${filters.value}/marks/${selectBrandTransport.value}/models?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs`
+      );
+      setSelectModelTransport(
+        data.map(({ name, value }) => ({ name: name, value: value }))
+      );
+    })();
+  }, [filters.value, selectBrandTransport.value]);
+
+
+
+
+  
 
   return (
     <div className="span8 form-search">
@@ -71,7 +92,6 @@ const SearchFormTitle = (props) => {
           <div className="item_column primary_column">
             <div className="select_transport">
               <select
-                id="select_type"
                 value={filters.value}
                 onChange={changeValue}
               >
@@ -87,7 +107,10 @@ const SearchFormTitle = (props) => {
                   id="brandTooltipBrandAutocomplete-brand"
                   className="autocomplete-search"
                 >
-                  <select className="unstyle scrollbar autocomplete-select hide">
+                  <select className="unstyle scrollbar autocomplete-select hide"
+                   value={filters.value}
+                   onChange={changeValue}
+                  >
                     <option className="list-item">марка</option>
                     {selectBrandTransport.map((item) => (
                       <option key={item.value} value={item.value}>
@@ -98,12 +121,17 @@ const SearchFormTitle = (props) => {
                 </div>
               </div>
               <div className="model_choise">
-                <input
-                  type="search"
-                  id="brandTooltipBrandAutocompleteInput-model"
-                />
-                <label data-text="Модель" className="text"></label>
-                <span className="ac-clean hide">×</span>
+              <select className="unstyle scrollbar autocomplete-select hide"
+                               
+                  >
+                    <option className="list-item">модель</option>
+                    {selectModelTransport.map((item) => (
+                      <option key={item.name} value={item.value}>
+                        {item.name}
+                      </option>
+                    ))}
+                  </select>
+                
               </div>
             </div>
           </div>
