@@ -42,18 +42,16 @@ const SearchFormTitle = (props) => {
     })();
 
   }, [filters.value]);
-  console.log(selectBrandTransport.value)
   useEffect(() => {
     (async () => {
       let data = await getTransportData(
-       `https://developers.ria.com/auto/categories/${filters.value}/marks/${selectBrandTransport.value}/models?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs`
+       `https://developers.ria.com/auto/categories/2/marks/9/models?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs`
       );
       setSelectModelTransport(
         data.map(({ name, value }) => ({ name: name, value: value }))
       );
     })();
-  }, [filters.value, selectBrandTransport.value]);
-
+  }, []);
 
 
 
@@ -108,8 +106,7 @@ const SearchFormTitle = (props) => {
                   className="autocomplete-search"
                 >
                   <select className="unstyle scrollbar autocomplete-select hide"
-                   value={filters.value}
-                   onChange={changeValue}
+                  onChange={changeValue}
                   >
                     <option className="list-item">марка</option>
                     {selectBrandTransport.map((item) => (
@@ -122,7 +119,7 @@ const SearchFormTitle = (props) => {
               </div>
               <div className="model_choise">
               <select className="unstyle scrollbar autocomplete-select hide"
-                               
+                              onChange={changeValue}    
                   >
                     <option className="list-item">модель</option>
                     {selectModelTransport.map((item) => (
