@@ -16,14 +16,39 @@ const SearchFormTitle = (props) => {
   const [selectModelTransport, setSelectModelTransport] = useState([
     { name: "", value: "" },
   ]);
-  const [filters, setFilters] = useState([{ value: "" }]);
 
+  const [filters, setFilters] = useState(
+  {typesValue: '',
+  brandValue: '',
+  modelValue: ''}
 
-  const changeValue = (event) => setFilters({ value: event.target.value });
+);
+
+ const handleTypesChange  = (e) => setFilters({
+  typesValue: e.target.value,
+  },
+    console.log(filters.typesValue)
+  )
+
+  const handleBrandChange  = (e) => setFilters({
+typesValue: filters.typesValue,
+     brandValue: e.target.value
+    },
+    console.log(filters.brandValue)
+    )
+
+    const handleModelChange  = (e) => setFilters({
+     typesValue: filters.typesValue,
+      brandValue: filters.brandValue, 
+      modelValue: e.target.value
+      },
+      console.log(filters.modelValue)
+      )
+
 
   useEffect(() => {
-    (async () => {
-      let data = await getTransportData(allCategoriesFromApi);
+        (async () => {
+            let data = await getTransportData(allCategoriesFromApi);
       setSelectTypesTransport(
         data.map(({ name, value }) => ({ name: name, value: value }))
       );
@@ -33,7 +58,7 @@ const SearchFormTitle = (props) => {
   useEffect(() => {
     (async () => {
       let data = await getTransportData(
-        `https://developers.ria.com/auto/categories/${filters.value}/marks?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs`
+        `https://developers.ria.com/auto/categories/${filters.typesValue}/marks?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs`
       );
       setSelectBrandTransport(
         data.map(({ name, value }) => ({ name: name, value: value }))
@@ -41,21 +66,22 @@ const SearchFormTitle = (props) => {
     
     })();
 
-  }, [filters.value]);
+  }, [filters.typesValue]);
+  
   useEffect(() => {
     (async () => {
       let data = await getTransportData(
-       `https://developers.ria.com/auto/categories/2/marks/9/models?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs`
+       `https://developers.ria.com/auto/categories/${filters.typesValue}/marks/${filters.brandValue}/models?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs`
       );
+  
       setSelectModelTransport(
         data.map(({ name, value }) => ({ name: name, value: value }))
       );
-    })();
+      
+    })()
   }, []);
 
 
-
-  
 
   return (
     <div className="span8 form-search">
@@ -90,8 +116,8 @@ const SearchFormTitle = (props) => {
           <div className="item_column primary_column">
             <div className="select_transport">
               <select
-                value={filters.value}
-                onChange={changeValue}
+              value={filters.typesValue}
+                onChange={handleTypesChange}
               >
                 <option>любой</option>
                 {selectTypesTransport.map((item) => (
@@ -106,7 +132,8 @@ const SearchFormTitle = (props) => {
                   className="autocomplete-search"
                 >
                   <select className="unstyle scrollbar autocomplete-select hide"
-                  onChange={changeValue}
+                  onChange={handleBrandChange}
+                  //value={filters.brandValue}
                   >
                     <option className="list-item">марка</option>
                     {selectBrandTransport.map((item) => (
@@ -119,7 +146,7 @@ const SearchFormTitle = (props) => {
               </div>
               <div className="model_choise">
               <select className="unstyle scrollbar autocomplete-select hide"
-                              onChange={changeValue}    
+                              onChange={handleModelChange}    
                   >
                     <option className="list-item">модель</option>
                     {selectModelTransport.map((item) => (
