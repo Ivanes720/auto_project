@@ -17,38 +17,39 @@ const SearchFormTitle = (props) => {
     { name: "", value: "" },
   ]);
 
-  const [filters, setFilters] = useState(
-  {typesValue: '',
-  brandValue: '',
-  modelValue: ''}
+  const [filters, setFilters] = useState({
+    typesValue: "",
+    brandValue: "",
+    modelValue: "",
+  });
 
-);
-
- const handleTypesChange  = (e) => setFilters({
-  typesValue: e.target.value,
-  },
-    console.log(filters.typesValue)
-  )
-
-  const handleBrandChange  = (e) => setFilters({
-typesValue: filters.typesValue,
-     brandValue: e.target.value
-    },
-    console.log(filters.brandValue)
-    )
-
-    const handleModelChange  = (e) => setFilters({
-     typesValue: filters.typesValue,
-      brandValue: filters.brandValue, 
-      modelValue: e.target.value
+  const handleTypesChange = (e) =>
+    setFilters(
+      {
+        typesValue: e.target.value,
       },
-      console.log(filters.modelValue)
-      )
+    );
 
+  const handleBrandChange = (e) =>
+    setFilters(
+      {
+        typesValue: filters.typesValue,
+        brandValue: e.target.value,
+      },
+    );
+
+  const handleModelChange = (e) =>
+    setFilters(
+      {
+        typesValue: filters.typesValue,
+        brandValue: filters.brandValue,
+        modelValue: e.target.value,
+      },
+    );
 
   useEffect(() => {
-        (async () => {
-            let data = await getTransportData(allCategoriesFromApi);
+    (async () => {
+      let data = await getTransportData(allCategoriesFromApi);
       setSelectTypesTransport(
         data.map(({ name, value }) => ({ name: name, value: value }))
       );
@@ -63,25 +64,21 @@ typesValue: filters.typesValue,
       setSelectBrandTransport(
         data.map(({ name, value }) => ({ name: name, value: value }))
       );
-    
     })();
-
   }, [filters.typesValue]);
-  
+
   useEffect(() => {
-    (async () => {
-      let data = await getTransportData(
-       `https://developers.ria.com/auto/categories/${filters.typesValue}/marks/${filters.brandValue}/models?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs`
-      );
-  
-      setSelectModelTransport(
-        data.map(({ name, value }) => ({ name: name, value: value }))
-      );
-      
-    })()
-  }, []);
+    if (filters.typesValue && filters.brandValue !== undefined)
+      (async () => {
+        let data = await getTransportData(
+          `https://developers.ria.com/auto/categories/${filters.typesValue}/marks/${filters.brandValue}/models?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs`
+        );
 
-
+        setSelectModelTransport(
+          data.map(({ name, value }) => ({ name: name, value: value }))
+        );
+      })();
+  }, [filters.typesValue, filters.brandValue]);
 
   return (
     <div className="span8 form-search">
@@ -115,10 +112,7 @@ typesValue: filters.typesValue,
           </div>
           <div className="item_column primary_column">
             <div className="select_transport">
-              <select
-              value={filters.typesValue}
-                onChange={handleTypesChange}
-              >
+              <select value={filters.typesValue} onChange={handleTypesChange}>
                 <option>любой</option>
                 {selectTypesTransport.map((item) => (
                   <option key={item.value} value={item.value}>
@@ -131,9 +125,10 @@ typesValue: filters.typesValue,
                   id="brandTooltipBrandAutocomplete-brand"
                   className="autocomplete-search"
                 >
-                  <select className="unstyle scrollbar autocomplete-select hide"
-                  onChange={handleBrandChange}
-                  //value={filters.brandValue}
+                  <select
+                    className="unstyle scrollbar autocomplete-select hide"
+                    onChange={handleBrandChange}
+                    //value={filters.brandValue}
                   >
                     <option className="list-item">марка</option>
                     {selectBrandTransport.map((item) => (
@@ -145,17 +140,17 @@ typesValue: filters.typesValue,
                 </div>
               </div>
               <div className="model_choise">
-              <select className="unstyle scrollbar autocomplete-select hide"
-                              onChange={handleModelChange}    
-                  >
-                    <option className="list-item">модель</option>
-                    {selectModelTransport.map((item) => (
-                      <option key={item.name} value={item.value}>
-                        {item.name}
-                      </option>
-                    ))}
-                  </select>
-                
+                <select
+                  className="unstyle scrollbar autocomplete-select hide"
+                  onChange={handleModelChange}
+                >
+                  <option className="list-item">модель</option>
+                  {selectModelTransport.map((item) => (
+                    <option key={item.name} value={item.value}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
           </div>
