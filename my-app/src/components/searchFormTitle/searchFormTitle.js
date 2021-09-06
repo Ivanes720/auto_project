@@ -5,6 +5,9 @@ import getTransportData from "../../services/apiServices";
 const allCategoriesFromApi =
   "https://developers.ria.com/auto/categories/?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs";
 
+const allRegionFromApi =
+  "https://developers.ria.com/auto/states?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs";
+
 const SearchFormTitle = (props) => {
   const [selectTypesTransport, setSelectTypesTransport] = useState([
     { name: "", value: "" },
@@ -23,29 +26,25 @@ const SearchFormTitle = (props) => {
     modelValue: "",
   });
 
+  const [selectRegion, setSelectRegion] = useState([{}]);
+
   const handleTypesChange = (e) =>
-    setFilters(
-      {
-        typesValue: e.target.value,
-      },
-    );
+    setFilters({
+      typesValue: e.target.value,
+    });
 
   const handleBrandChange = (e) =>
-    setFilters(
-      {
-        typesValue: filters.typesValue,
-        brandValue: e.target.value,
-      },
-    );
+    setFilters({
+      typesValue: filters.typesValue,
+      brandValue: e.target.value,
+    });
 
   const handleModelChange = (e) =>
-    setFilters(
-      {
-        typesValue: filters.typesValue,
-        brandValue: filters.brandValue,
-        modelValue: e.target.value,
-      },
-    );
+    setFilters({
+      typesValue: filters.typesValue,
+      brandValue: filters.brandValue,
+      modelValue: e.target.value,
+    });
 
   useEffect(() => {
     (async () => {
@@ -80,9 +79,26 @@ const SearchFormTitle = (props) => {
       })();
   }, [filters.typesValue, filters.brandValue]);
 
+  useEffect(() => {
+    (async () => {
+      let data = await getTransportData(allRegionFromApi);
+      setSelectRegion(
+        data.map(({ name, value }) => ({ name: name, value: value }))
+      );
+    })();
+  }, []);
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault(); 
+    let data = await getTransportData(`https://developers.ria.com/auto/search?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs&${filters}`);
+      return console.log(data)
+  }
+
+
   return (
     <div className="span8 form-search">
-      <form>
+      <form id='form_search'  onSubmit={handleSubmit}>
         <div className="filter-checked-car">
           <input type="checkbox" id="verifiedVIN" />
           <label>
@@ -158,21 +174,16 @@ const SearchFormTitle = (props) => {
           <div className="item_column secondary_column">
             <div className="m-rows">
               <div className="m-rows">
-                <label className="m-label">Регион</label>
+                <select>
+                  <option>Регион</option>
+                  {selectRegion.map((item) => (
+                    <option key={item.value} value={item.value}>
+                      {item.name}
+                    </option>
+                  ))}
+                </select>
               </div>
-              <div
-                id="brandTooltipBrandAutocomplete-region"
-                className="autocomplete-search"
-              >
-                <input
-                  type="search"
-                  id="brandTooltipBrandAutocompleteInput-region"
-                  placeholder="Регион"
-                />
-                <label className="text"></label>
-                <span className="ac-clean hide">×</span>
-                <ul className="unstyle scrollbar autocomplete-select hide"></ul>
-              </div>
+          
               <div className="m-rows e-year"></div>
             </div>
 
@@ -187,11 +198,16 @@ const SearchFormTitle = (props) => {
                     placeholder="от"
                     className="e-form _grey"
                   >
-                    <option>от</option>
+                    <option value="2000">2000</option>
+                    <option value="2001">2001</option>
+                    <option value="2002">2002</option>
+
                   </select>
                 </div>
                 <select id="yearTo" className="e-form _grey">
-                  <option>до</option>
+                <option value="2010">2005</option>
+                <option value="2011">2011</option>
+                <option value="2012">2012</option>
                 </select>
               </div>
             </div>
@@ -219,11 +235,17 @@ const SearchFormTitle = (props) => {
                       className="e-form"
                     />
                   </div>
+                  <div>
+                   
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+        <button form="form_search" type='submit' >
+                      поиск
+                    </button>
       </form>
     </div>
   );
