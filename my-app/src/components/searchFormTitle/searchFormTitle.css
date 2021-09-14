@@ -24,17 +24,11 @@
 }
 .form-search {
     font-size: 16px;
-    color: #fff;
-    background: #db5c4c;
+    color: rgb(192, 44, 44);
+    background: red;
     padding: 15px;
 }
-[type=checkbox], [type=radio] {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-}
+
 .form-search .nav label {
     border-right: 1px solid #fff;
     font-size: 13px;

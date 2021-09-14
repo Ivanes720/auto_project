@@ -1,5 +1,7 @@
 import React from 'react';
+import CarList from '../carList/carList';
 import NavBar from '../navBar';
+
 import SearchFormTitle from '../searchFormTitle';
 const App =  () => {
  
@@ -8,7 +10,6 @@ const App =  () => {
      <>
        <NavBar/>
        <SearchFormTitle/>
-      
       </>
     )
 };
