@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import getTransportData from "../../services/apiServices";
 const allCategoriesFromApi =
   "https://developers.ria.com/auto/categories/?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs";
-
+//csd
 const allRegionFromApi =
   "https://developers.ria.com/auto/states?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs";
 
