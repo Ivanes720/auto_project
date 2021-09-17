@@ -2,22 +2,19 @@ import React, { useState, useEffect } from "react";
 import "./searchFormTitle.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import getTransportData from "../../services/apiServices";
+import CarList from "../carList/carList";
 const allCategoriesFromApi =
   "https://developers.ria.com/auto/categories/?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs";
-//csd
 const allRegionFromApi =
   "https://developers.ria.com/auto/states?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs";
 
 const SearchFormTitle = (props) => {
   const [selectTypesTransport, setSelectTypesTransport] = useState([
-    { name: "", value: "" },
   ]);
 
   const [selectBrandTransport, setSelectBrandTransport] = useState([
-    { name: "", value: "" },
   ]);
   const [selectModelTransport, setSelectModelTransport] = useState([
-    { name: "", value: "" },
   ]);
 
   const [filters, setFilters] = useState({
@@ -31,8 +28,10 @@ const SearchFormTitle = (props) => {
     toPrice: "",
     verifyCheckBox: false,
   });
-const [result, setResult]=useState([])
-  const [selectRegion, setSelectRegion] = useState([{}]);
+
+const [selectRegion, setSelectRegion] = useState([]);
+const [filterCarId, setFilterCarId]=useState([]);
+const [resultCar, setResultCar]=useState([]);
 
   const handleTypesChange = (e) =>
     setFilters({
@@ -122,15 +121,21 @@ const [result, setResult]=useState([])
       );
     })();
   }, []);
-// kjggkj
+
+  
   const handleSubmit = async (e) => {
-    e.preventDefault();
+   e.preventDefault();
     let data = await getTransportData(
       `https://developers.ria.com/auto/search?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs&category_id=${filters.typesValue}.&marka_id=${filters.brandValue}&model_id=${filters.model}&state=${filters.region}&s_yers=${filters.sYears}&po_yers=${filters.poYears}&price_ot=${filters.upPrice}&price_do=${filters.toPrice}&verified.VIN=${filters.verifyCheckBox}`
     );
-    return setResult(data.result.search_result.ids);
+    setFilterCarId(data.result.search_result.ids);
+    getResultCar()
+    console.log(resultCar)
   };
-
+  const getResultCar=  ()=>  filterCarId.map(function(elem){
+    setResultCar(
+       getTransportData(`https://developers.ria.com/auto/info?api_key=udjpgRF2gjAOp6ov2xYgOEcXLwXxpeFuN5JuUbjs&auto_id=${elem}`));
+    });
 
   return (
     <div className="span8 form-search">
@@ -287,6 +292,7 @@ const [result, setResult]=useState([])
           поиск
         </button>
       </form>
+    
     </div>
   );
 };
